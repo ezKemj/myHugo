@@ -1,11 +1,13 @@
 baseURL = "https://ezkemj.github.io/myHugo/"
-languageCode = "zh-CN"
 title = "信息中枢"
 theme = "PaperMod"
-defaultContentLanguage = "zh-CN"
-hasCJKLanguage = true
 paginate = 10
 pygmentsUseClasses = true
+hasCJKLanguage = true
+defaultContentLanguage = "zh-cn"
+
+[minify]
+  disableJSON = true  # 避免 --minify 压缩 JSON-LD 时出错
 
 [params]
   defaultTheme = "auto"
@@ -17,7 +19,7 @@ pygmentsUseClasses = true
   enableEmoji = true
   env = "production"
   description = "集中管理知识、文档和资源索引的平台"
-  author = "ezKemj"
+  author = "ezkemj"
   keywords = ["Docker", "CentOS", "运维脚本", "信息中枢"]
 
 [params.homeInfoParams]
@@ -34,10 +36,38 @@ pygmentsUseClasses = true
   taxonomy = ["HTML", "RSS"]
   taxonomyTerm = ["HTML", "RSS"]
 
-[minify]
-  disableJSON = true
-
 [[menu.main]]
   name = "部署脚本"
   url = "/docs/"
   weight = 2
+
+[languages]
+
+  [languages.zh-cn]
+    languageName = "简体中文"
+    languageCode = "zh-cn"
+    weight = 1
+    hasCJKLanguage = true
+
+  [languages.zh-tw]
+    languageName = "繁體中文"
+    languageCode = "zh-tw"
+    weight = 2
+    hasCJKLanguage = true
+
+  [languages.ja]
+    languageName = "日本語"
+    languageCode = "ja"
+    weight = 3
+    hasCJKLanguage = true
+
+  [languages.ko]
+    languageName = "한국어"
+    languageCode = "ko"
+    weight = 4
+    hasCJKLanguage = true
+
+  [languages.en]
+    languageName = "English"
+    languageCode = "en"
+    weight = 5
