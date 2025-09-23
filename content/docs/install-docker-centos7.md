@@ -3,7 +3,9 @@ title: "CentOS 7 Docker 安装与镜像加速配置脚本"
 date: 2025-09-23
 tags: ["Docker", "CentOS", "运维脚本"]
 categories: ["部署指南"]
+draft: false
 ---
+
 
 本文提供一个适用于 **CentOS 7** 的 Docker 安装与镜像加速配置脚本，帮助快速部署 Docker 环境，并优化镜像拉取速度。  
 镜像加速地址需根据实际情况自行替换为可信来源。
