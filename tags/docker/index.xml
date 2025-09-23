@@ -120,4 +120,4 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;systemctl restart docker
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;echo -e &lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#e6db74"&gt;${&lt;/span&gt;GREEN&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;&lt;span style="color:#e6db74"&gt;Docker 安装与镜像加速配置完成！（CentOS 7）&lt;/span&gt;&lt;span style="color:#e6db74"&gt;${&lt;/span&gt;NC&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>CentOS 7 Docker 安装与镜像加速配置脚本</title><link>https://ezkemj.github.io/myHugo/zh-tw/docs/install-docker-centos7/</link><pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-tw/docs/install-docker-centos7/</guid><description>&lt;p&gt;此页面的当前语言版本尚未翻译：&lt;/p&gt;</description></item></channel></rss>
