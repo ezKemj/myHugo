@@ -1,4 +1,21 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
 theme = "PaperMod"
+
+[params]
+  defaultTheme = "auto"
+  ShowToc = true
+  ShowReadingTime = true
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  ShowShareButtons = true
+  enableEmoji = true
+  env = "production"
+
+pygmentsUseClasses = true
+paginate = 10
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
