@@ -1,49 +1,61 @@
-baseURL = "https://ezkemj.github.io/myHugo/"
-title = "信息中枢"
-theme = "PaperMod"
-pygmentsUseClasses = true
-hasCJKLanguage = true
-defaultContentLanguage = "zh-cn"
+baseURL = "https://ezkemj.github.io/myHugo/"   # 必填：站点基础 URL
+title = "信息中枢"                             # 必填：站点标题
+theme = "PaperMod"                             # 必填：主题名称
+languageCode = "zh-cn"                         # HTML lang 属性
+defaultContentLanguage = "zh-cn"               # 默认语言
+hasCJKLanguage = true                          # 中日韩排版优化
+pygmentsUseClasses = true                      # 代码高亮使用 CSS 类
+
+summaryLength = 150                             # 中文摘要长度（按字符数）
+enableRobotsTXT = true                          # 生成 robots.txt（SEO 友好）
 
 [minify]
-  disableJSON = true  # 避免 --minify 压缩 JSON-LD 时出错
+  disableJSON = true                            # 避免 --minify 压缩 JSON-LD 时出错
 
 [pagination]
-  pagerSize = 10
+  pagerSize = 10                                # 每页文章数量
 
 [params]
-  defaultTheme = "auto"
-  ShowToc = true
-  ShowReadingTime = true
-  ShowBreadCrumbs = true
-  ShowPostNavLinks = true
-  ShowShareButtons = true
-  enableEmoji = true
-  env = "production"
+  # 🌗 外观与主题
+  defaultTheme = "auto"                         # 自动切换亮/暗模式
+  disableThemeToggle = false                    # 显示主题切换按钮
+
+  # 📚 阅读体验
+  ShowToc = true                                # 显示目录
+  TocOpen = false                               # 默认目录收起
+  ShowReadingTime = true                        # 显示预计阅读时间
+  ShowBreadCrumbs = true                        # 面包屑导航
+  ShowPostNavLinks = true                       # 上一篇/下一篇导航
+  ShowCodeCopyButtons = true                    # 代码块复制按钮
+  ShowLastMod = true                            # 显示最后修改时间（需文章 Front Matter 有 lastmod）
+  DateFormat = "2006年01月02日"                  # 中文日期格式
+  disableHLJS = false                           # 启用主题自带 highlight.js 高亮
+
+  # 🔗 分享与元信息
+  ShowShareButtons = true                       # 分享按钮（本地生成链接）
+  enableEmoji = true                            # Emoji 支持
   description = "集中管理知识、文档和资源索引的平台"
   author = "ezkemj"
   keywords = ["Docker", "CentOS", "运维脚本", "信息中枢"]
 
-[params.homeInfoParams]
-  Title = "欢迎来到信息中枢"
-  Content = "集中管理知识、文档和资源索引的平台"
+  # 🏠 首页信息块
+  [params.homeInfoParams]
+    Title = "欢迎来到信息中枢"
+    Content = "集中管理知识、文档和资源索引的平台"
 
 [taxonomies]
   category = "categories"
   tag = "tags"
 
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
-  section = ["HTML", "RSS"]
-  taxonomy = ["HTML", "RSS"]
+  home = ["HTML", "RSS", "JSON"]                 # 首页输出 HTML、RSS、JSON（JSON 用于本地搜索）
+  section = ["HTML", "RSS"]                      # 栏目页输出 HTML、RSS
+  taxonomy = ["HTML", "RSS"]                     # 标签/分类页输出 HTML、RSS
 
 [[menu.main]]
   name = "部署脚本"
   url = "/docs/"
   weight = 2
-
-  
-defaultContentLanguage = "zh-cn"
 
 [languages]
   [languages.zh-cn]
@@ -51,27 +63,3 @@ defaultContentLanguage = "zh-cn"
     languageCode = "zh-cn"
     weight = 1
     hasCJKLanguage = true
-
-  [languages.en]
-    languageName = "English"
-    languageCode = "en"
-    weight = 2
-
-  [languages.ja]
-    languageName = "日本語"
-    languageCode = "ja"
-    weight = 3
-    hasCJKLanguage = true
-
-  [languages.ko]
-    languageName = "한국어"
-    languageCode = "ko"
-    weight = 4
-    hasCJKLanguage = true
-
-  [languages.zh-tw]
-    languageName = "繁體中文"
-    languageCode = "zh-tw"
-    weight = 5
-    hasCJKLanguage = true
-
