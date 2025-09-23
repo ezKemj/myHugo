@@ -1,4 +1,11 @@
+baseURL = "https://ezkemj.github.io/myHugo/"
+languageCode = "zh-CN"
+title = "信息中枢"
 theme = "PaperMod"
+defaultContentLanguage = "zh-CN"
+hasCJKLanguage = true
+paginate = 10
+pygmentsUseClasses = true
 
 [params]
   defaultTheme = "auto"
@@ -9,9 +16,13 @@ theme = "PaperMod"
   ShowShareButtons = true
   enableEmoji = true
   env = "production"
+  description = "集中管理知识、文档和资源索引的平台"
+  author = "ezKemj"
+  keywords = ["Docker", "CentOS", "运维脚本", "信息中枢"]
 
-pygmentsUseClasses = true
-paginate = 10
+[params.homeInfoParams]
+  Title = "欢迎来到信息中枢"
+  Content = "集中管理知识、文档和资源索引的平台"
 
 [taxonomies]
   category = "categories"
@@ -19,8 +30,14 @@ paginate = 10
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML", "RSS"]
+
+[minify]
+  disableJSON = true
+
 [[menu.main]]
   name = "部署脚本"
   url = "/docs/"
   weight = 2
-  
