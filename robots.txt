@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://ezkemj.github.io/myHugo/sitemap.xml
