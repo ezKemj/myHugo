@@ -19,3 +19,8 @@ paginate = 10
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+[[menu.main]]
+  name = "部署脚本"
+  url = "/docs/"
+  weight = 2
+  
