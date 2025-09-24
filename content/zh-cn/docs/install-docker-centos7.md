@@ -30,11 +30,11 @@ draft: false
 
 set -e
 
-    YELLOW='\033[1;33m'
-    GREEN='\033[0;32m'
-    NC='\033[0m'
+YELLOW='\033[1;33m'
+GREEN='\033[0;32m'
+NC='\033[0m'
 
-    # 镜像加速地址占位符，请替换为可信来源
+# 镜像加速地址占位符，请替换为可信来源
 DOCKER_MIRROR="https://your.mirror.address/"
 
 echo -e "${YELLOW}[1/3] 更新系统包...${NC}"
