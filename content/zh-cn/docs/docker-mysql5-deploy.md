@@ -64,7 +64,7 @@ docker run -d \
   -v ${MYSQL_DATA_DIR}:/var/lib/mysql \
   -v /etc/mysql5-docker/my.cnf:/etc/mysql/conf.d/my.cnf \
   -e MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}" \
-  <YOUR_DOCKER_REGISTRY>/mysql:5.7
+  mysql:5.7
 
 echo -e "${YELLOW}等待 MySQL 启动...${NC}"
 sleep 15
