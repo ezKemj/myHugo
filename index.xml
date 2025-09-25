@@ -202,6 +202,42 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 4. 更新系统&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo yum update -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>在 CentOS 7 上安装 MySQL 5.7</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/install_mysql57/</link><pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/install_mysql57/</guid><description>&lt;p&gt;本文记录了在 &lt;strong&gt;CentOS 7&lt;/strong&gt; 上安装 &lt;strong&gt;MySQL 5.7&lt;/strong&gt; 的完整步骤，并提供了可直接运行的脚本。&lt;br&gt;
+请根据实际环境替换文中标注的路径或参数。&lt;/p&gt;
+&lt;h2 id="安装脚本"&gt;安装脚本&lt;/h2&gt;
+&lt;p&gt;以下脚本可保存为 &lt;code&gt;install_mysql57.sh&lt;/code&gt; 并执行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;# 在 CentOS 7 上安装 MySQL 5.7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 1. 下载 RPM 仓库配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 使用者可根据需要替换本地保存路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo curl -f -s -S -L -o /tmp/mysql57-community-release-el7-11.noarch.rpm &lt;span style="color:#ae81ff"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ae81ff"&gt;&lt;/span&gt; https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 2. 安装 RPM 仓库&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo yum localinstall /tmp/mysql57-community-release-el7-11.noarch.rpm -y
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 3. 安装 MySQL 官方公钥&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 4. 检查仓库是否启用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo yum repolist all | grep mysql
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 5. 安装 MySQL 服务器&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo yum install mysql-community-server -y
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 6. 启动服务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo systemctl start mysqld
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 7. 设置开机自启&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo systemctl enable mysqld
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 8. 获取临时密码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 使用者需确认日志路径是否一致&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo grep &lt;span style="color:#e6db74"&gt;&amp;#39;temporary password&amp;#39;&lt;/span&gt; /var/log/mysqld.log
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 9. 执行安全配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo mysql_secure_installation
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>CentOS 7 一键安装 Docker 并配置镜像加速</title><link>https://ezkemj.github.io/myHugo/zh-cn/docs/install-docker-centos7-chain/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/docs/install-docker-centos7-chain/</guid><description>适用于中国网络环境的 Docker 安装脚本。</description></item><item><title>Debian 12 使用 Docker 部署 MySQL 5.7</title><link>https://ezkemj.github.io/myHugo/zh-cn/docs/docker-mysql5-deploy/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/docs/docker-mysql5-deploy/</guid><description>在 Debian 12 上通过 Docker 快速部署 MySQL 5.7 的完整脚本示例，包含配置文件、管理脚本和远程用户创建。</description></item><item><title>Debian 12 使用 Docker 部署 MySQL 8</title><link>https://ezkemj.github.io/myHugo/zh-cn/docs/docker-mysql8-deploy/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/docs/docker-mysql8-deploy/</guid><description>在 Debian 12 上通过 Docker 快速部署 MySQL 8 的完整脚本示例，包含配置文件、管理脚本和远程用户创建。</description></item><item><title>Debian 12 一键安装 Docker 并配置镜像加速</title><link>https://ezkemj.github.io/myHugo/zh-cn/docs/debain-docker-setup/</link><pubDate>Wed, 24 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/docs/debain-docker-setup/</guid><description>适用于 Debian 12 的 Docker 安装与镜像加速脚本。</description></item><item><title>CentOS 7 Docker 安装与镜像加速配置脚本</title><link>https://ezkemj.github.io/myHugo/en/docs/install-docker-centos7/</link><pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/en/docs/install-docker-centos7/</guid><description>&lt;p&gt;此页面的当前语言版本尚未翻译：&lt;/p&gt;</description></item><item><title>CentOS 7 Docker 安装与镜像加速配置脚本</title><link>https://ezkemj.github.io/myHugo/ja/docs/install-docker-centos7/</link><pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/ja/docs/install-docker-centos7/</guid><description>&lt;p&gt;此页面的当前语言版本尚未翻译：&lt;/p&gt;</description></item><item><title>CentOS 7 Docker 安装与镜像加速配置脚本</title><link>https://ezkemj.github.io/myHugo/zh-cn/docs/install-docker-centos7/</link><pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/docs/install-docker-centos7/</guid><description>&lt;p&gt;本文提供一个适用于 &lt;strong&gt;CentOS 7&lt;/strong&gt; 的 Docker 安装与镜像加速配置脚本，帮助快速部署 Docker 环境，并优化镜像拉取速度。&lt;br&gt;
 镜像加速地址需根据实际情况自行替换为可信来源。&lt;/p&gt;
 &lt;h2 id="-使用说明"&gt;📌 使用说明&lt;/h2&gt;
