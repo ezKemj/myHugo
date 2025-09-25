@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>运维 on 信息中枢</title><link>https://ezkemj.github.io/myHugo/tags/%E8%BF%90%E7%BB%B4/</link><description>Recent content in 运维 on 信息中枢</description><generator>Hugo -- 0.150.0</generator><language>zh-cn</language><lastBuildDate>Thu, 25 Sep 2025 16:30:00 +0800</lastBuildDate><atom:link href="https://ezkemj.github.io/myHugo/tags/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml"/><item><title>在 CentOS 7 上安装与配置 Redis（含远程访问）</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/installredisinthecentos7/</link><pubDate>Thu, 25 Sep 2025 16:30:00 +0800</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/installredisinthecentos7/</guid><description>&lt;h2 id="-简介"&gt;📌 简介&lt;/h2&gt;
+&lt;p&gt;本文记录了在 &lt;strong&gt;CentOS 7&lt;/strong&gt; 环境下安装 Redis、配置远程访问和防火墙规则的完整流程。
+适合初学者快速搭建 Redis 服务，同时包含一些安全注意事项。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;⚠️ &lt;strong&gt;注意&lt;/strong&gt;：本文中的密码与 IP 地址均为示例，请务必替换为你自己的安全配置。生产环境中请避免直接使用 &lt;code&gt;bind *&lt;/code&gt;，建议绑定内网 IP 并结合防火墙限制来源。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="-安装-redis"&gt;🛠 安装 Redis&lt;/h2&gt;
+&lt;p&gt;首先添加必要的仓库并安装 Redis：&lt;/p&gt;</description></item></channel></rss>
