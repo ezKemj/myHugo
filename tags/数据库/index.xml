@@ -5,7 +5,54 @@
 &lt;p&gt;⚠️ &lt;strong&gt;注意&lt;/strong&gt;：本文中的密码与 IP 地址均为示例，请务必替换为你自己的安全配置。生产环境中请避免直接使用 &lt;code&gt;bind *&lt;/code&gt;，建议绑定内网 IP 并结合防火墙限制来源。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id="-安装-redis"&gt;🛠 安装 Redis&lt;/h2&gt;
-&lt;p&gt;首先添加必要的仓库并安装 Redis：&lt;/p&gt;</description></item><item><title>在 CentOS 7 上安装 MySQL 5.7</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/install_mysql57/</link><pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/install_mysql57/</guid><description>&lt;p&gt;本文记录了在 &lt;strong&gt;CentOS 7&lt;/strong&gt; 上安装 &lt;strong&gt;MySQL 5.7&lt;/strong&gt; 的完整步骤，并提供了可直接运行的脚本。&lt;br&gt;
+&lt;p&gt;首先添加必要的仓库并安装 Redis：&lt;/p&gt;</description></item><item><title>MySQL 初始化用户与数据库及防火墙配置</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql_init/</link><pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql_init/</guid><description>&lt;p&gt;本文提供一个 MySQL 初始化脚本示例，涵盖用户创建、数据库创建、权限分配以及防火墙端口配置。&lt;br&gt;
+请根据实际环境替换用户名、密码、数据库名和端口号。&lt;/p&gt;
+&lt;h2 id="脚本内容"&gt;脚本内容&lt;/h2&gt;
+&lt;p&gt;以下脚本可保存为 &lt;code&gt;mysql_init.sh&lt;/code&gt; 并执行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;# MySQL 初始化用户、数据库及防火墙配置示例&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 使用者需替换用户名、密码、数据库名等为实际环境&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mysql -u root -p &lt;span style="color:#e6db74"&gt;&amp;lt;&amp;lt;&amp;#39;EOF&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;-- 创建用户（如已存在请先删除）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;CREATE USER &amp;#39;your_user&amp;#39;@&amp;#39;%&amp;#39; IDENTIFIED BY &amp;#39;your_password&amp;#39;;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;-- 更新用户密码
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;ALTER USER &amp;#39;your_user&amp;#39;@&amp;#39;%&amp;#39; IDENTIFIED BY &amp;#39;your_password&amp;#39;;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;-- 创建数据库（使用者需替换为实际数据库名）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;CREATE DATABASE IF NOT EXISTS your_db1 CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;CREATE DATABASE IF NOT EXISTS your_db2 CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;-- 授权用户访问数据库
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;GRANT ALL PRIVILEGES ON `your_db1`.* TO &amp;#39;your_user&amp;#39;@&amp;#39;%&amp;#39;;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;GRANT ALL PRIVILEGES ON `your_db2`.* TO &amp;#39;your_user&amp;#39;@&amp;#39;%&amp;#39;;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;-- 刷新权限
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;FLUSH PRIVILEGES;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;-- 查看用户权限
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;SHOW GRANTS FOR &amp;#39;your_user&amp;#39;@&amp;#39;%&amp;#39;;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;-- 查看数据库列表
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;SHOW DATABASES LIKE &amp;#39;your_db%&amp;#39;;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 防火墙配置（使用者需替换端口号）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 查看永久开放的端口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo firewall-cmd --permanent --list-ports
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 查看当前实时生效的开放端口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo firewall-cmd --zone&lt;span style="color:#f92672"&gt;=&lt;/span&gt;public --list-ports
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 开放防火墙端口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo firewall-cmd --zone&lt;span style="color:#f92672"&gt;=&lt;/span&gt;public --add-port&lt;span style="color:#f92672"&gt;=&lt;/span&gt;3306/tcp --permanent
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo firewall-cmd --reload
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 移除防火墙端口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# sudo firewall-cmd --zone=public --remove-port=3306/tcp --permanent&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# sudo firewall-cmd --reload&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>在 CentOS 7 上安装 MySQL 5.7</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/install_mysql57/</link><pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/install_mysql57/</guid><description>&lt;p&gt;本文记录了在 &lt;strong&gt;CentOS 7&lt;/strong&gt; 上安装 &lt;strong&gt;MySQL 5.7&lt;/strong&gt; 的完整步骤，并提供了可直接运行的脚本。&lt;br&gt;
 请根据实际环境替换文中标注的路径或参数。&lt;/p&gt;
 &lt;h2 id="安装脚本"&gt;安装脚本&lt;/h2&gt;
 &lt;p&gt;以下脚本可保存为 &lt;code&gt;install_mysql57.sh&lt;/code&gt; 并执行：&lt;/p&gt;
