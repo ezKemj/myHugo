@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>注册表 on 信息中枢</title><link>https://ezkemj.github.io/myHugo/tags/%E6%B3%A8%E5%86%8C%E8%A1%A8/</link><description>Recent content in 注册表 on 信息中枢</description><generator>Hugo -- 0.150.0</generator><language>zh-cn</language><lastBuildDate>Thu, 25 Sep 2025 16:00:00 +0800</lastBuildDate><atom:link href="https://ezkemj.github.io/myHugo/tags/%E6%B3%A8%E5%86%8C%E8%A1%A8/index.xml" rel="self" type="application/rss+xml"/><item><title>批处理脚本示例：自动清理注册表中的无效键值</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/autoclearinvalidkeyintheregistry/</link><pubDate>Thu, 25 Sep 2025 16:00:00 +0800</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/autoclearinvalidkeyintheregistry/</guid><description>&lt;h2 id="-简介"&gt;📌 简介&lt;/h2&gt;
+&lt;p&gt;本文分享一个 &lt;strong&gt;Windows 批处理脚本&lt;/strong&gt;，用于自动清理注册表中无效的键值。&lt;br&gt;
+脚本会遍历指定的注册表路径，查找并删除包含特定关键字的项。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;⚠️ &lt;strong&gt;免责声明&lt;/strong&gt;：本文仅供学习 Windows 注册表操作与批处理脚本编写方法。请勿将此类脚本用于规避商业软件授权或其他违法用途，否则后果自负。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="-功能说明"&gt;🛠 功能说明&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;遍历指定的注册表路径（示例中为 &lt;code&gt;HKEY_CURRENT_USER\Software\Classes\CLSID&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;查找包含指定关键字的子项。&lt;/li&gt;
+&lt;li&gt;删除匹配的注册表项，并输出日志。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="-脚本代码"&gt;💻 脚本代码&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bat" data-lang="bat"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;@&lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; off
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;setlocal&lt;/span&gt; enabledelayedexpansion
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;:&lt;span style="color:#75715e"&gt;: 定义关键字&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;set&lt;/span&gt; dn=Info
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;set&lt;/span&gt; dn2=ShellFolder
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;set&lt;/span&gt; rp=HKEY_CURRENT_USER\Software\Classes\CLSID
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; 开始扫描注册表...
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;/f&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;tokens=*&amp;#34;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;a &lt;span style="color:#66d9ef"&gt;in&lt;/span&gt; (&lt;span style="color:#e6db74"&gt;&amp;#39;reg query &amp;#34;&lt;/span&gt;%rp%&lt;span style="color:#e6db74"&gt;&amp;#34;&amp;#39;&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;do&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; 正在检查: &lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;a
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;/f&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;tokens=*&amp;#34;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;l &lt;span style="color:#66d9ef"&gt;in&lt;/span&gt; (&lt;span style="color:#e6db74"&gt;&amp;#39;reg query &amp;#34;&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;&lt;span style="color:#e6db74"&gt;a&amp;#34; /f &amp;#34;&lt;/span&gt;%dn%&lt;span style="color:#e6db74"&gt;&amp;#34; /s /e ^| findstr /i &amp;#34;&lt;/span&gt;%dn%&lt;span style="color:#e6db74"&gt;&amp;#34;&amp;#39;&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;do&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; 删除匹配项: &lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;a
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; reg delete &lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;a /f
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; )
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;/f&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;tokens=*&amp;#34;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;l &lt;span style="color:#66d9ef"&gt;in&lt;/span&gt; (&lt;span style="color:#e6db74"&gt;&amp;#39;reg query &amp;#34;&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;&lt;span style="color:#e6db74"&gt;a&amp;#34; /f &amp;#34;&lt;/span&gt;%dn2%&lt;span style="color:#e6db74"&gt;&amp;#34; /s /e ^| findstr /i &amp;#34;&lt;/span&gt;%dn2%&lt;span style="color:#e6db74"&gt;&amp;#34;&amp;#39;&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;do&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; 删除匹配项: &lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;a
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; reg delete &lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;a /f
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; )
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; 清理完成！
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;pause&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>
