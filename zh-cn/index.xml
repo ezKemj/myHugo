@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Zh-Cns on 信息中枢</title><link>https://ezkemj.github.io/myHugo/zh-cn/</link><description>Recent content in Zh-Cns on 信息中枢</description><generator>Hugo -- 0.152.2</generator><language>zh-cn</language><lastBuildDate>Wed, 05 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ezkemj.github.io/myHugo/zh-cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Optimizing Windows 10 VM on KVM</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/optimizing-win10-vm-kvm/</link><pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/optimizing-win10-vm-kvm/</guid><description>&lt;h1 id="optimizing-windows-10-vm-on-kvm"&gt;Optimizing Windows 10 VM on KVM&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Zh-Cns on 信息中枢</title><link>https://ezkemj.github.io/myHugo/zh-cn/</link><description>Recent content in Zh-Cns on 信息中枢</description><generator>Hugo -- 0.152.2</generator><language>zh-cn</language><lastBuildDate>Wed, 05 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ezkemj.github.io/myHugo/zh-cn/index.xml" rel="self" type="application/rss+xml"/><item><title>Debian 13 Production Docker Installation Script</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/debian13-docker-install/</link><pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/debian13-docker-install/</guid><description>&lt;h1 id="debian-13-trixie-生产环境-docker-官方安装脚本"&gt;Debian 13 (Trixie) 生产环境 Docker 官方安装脚本&lt;/h1&gt;
+&lt;p&gt;仅安装 &lt;strong&gt;Docker Engine&lt;/strong&gt;，不包含额外配置。&lt;/p&gt;
+&lt;h2 id="-安装脚本"&gt;📜 安装脚本&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Debian 13 (Trixie) 生产环境 Docker 官方安装脚本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 仅安装 Docker Engine，不包含额外配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;set&lt;/span&gt; -e
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;[1/6] 卸载可能的旧包...&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; pkg in docker.io docker-doc docker-compose podman-docker containerd runc&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; apt-get remove -y &lt;span class="nv"&gt;$pkg&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;[2/6] 安装依赖...&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;apt-get update -y
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;apt-get install -y ca-certificates curl gnupg lsb-release
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;[3/6] 添加 Docker 官方 GPG key...&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;install -m &lt;span class="m"&gt;0755&lt;/span&gt; -d /etc/apt/keyrings
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chmod a+r /etc/apt/keyrings/docker.asc
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;[4/6] 添加 Docker 官方 apt 仓库...&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;deb [arch=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;dpkg --print-architecture&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt; signed-by=/etc/apt/keyrings/docker.asc] \
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt; https://download.docker.com/linux/debian \
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s2"&gt; &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;. /etc/os-release &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;$VERSION_CODENAME&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt; stable&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; &amp;gt; /etc/apt/sources.list.d/docker.list
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;apt-get update -y
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;[5/6] 安装 Docker Engine...&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;[6/6] 启动并设置开机自启...&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;systemctl &lt;span class="nb"&gt;enable&lt;/span&gt; docker
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;systemctl start docker
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;✅ Docker 安装完成，验证运行 hello-world...&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;docker run --rm hello-world &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;🎉 Docker 已成功安装并运行！&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;✅ 使用说明
+适用于 Debian 13 (Trixie)&lt;/p&gt;</description></item><item><title>Optimizing Windows 10 VM on KVM</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/optimizing-win10-vm-kvm/</link><pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/optimizing-win10-vm-kvm/</guid><description>&lt;h1 id="optimizing-windows-10-vm-on-kvm"&gt;Optimizing Windows 10 VM on KVM&lt;/h1&gt;
 &lt;h2 id="-操作步骤"&gt;🛠️ 操作步骤&lt;/h2&gt;
 &lt;h3 id="1-安装-virtio-驱动必做"&gt;1. 安装 VirtIO 驱动（必做）&lt;/h3&gt;
 &lt;ul&gt;
