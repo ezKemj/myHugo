@@ -544,7 +544,27 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;systemctl restart docker
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; -e &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;GREEN&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;Docker 安装与镜像加速配置完成！（CentOS 7）&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;NC&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>CentOS 7 Docker 安装与镜像加速配置脚本</title><link>https://ezkemj.github.io/myHugo/zh-tw/docs/install-docker-centos7/</link><pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-tw/docs/install-docker-centos7/</guid><description>&lt;p&gt;此页面的当前语言版本尚未翻译：&lt;/p&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql57-docker-oneclick-deployment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql57-docker-oneclick-deployment/</guid><description>&lt;h1 id="mysql-57-docker-部署最佳实践---一键脚本版"&gt;MySQL 5.7 Docker 部署最佳实践 - 一键脚本版&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>CentOS 7 Docker 安装与镜像加速配置脚本</title><link>https://ezkemj.github.io/myHugo/zh-tw/docs/install-docker-centos7/</link><pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-tw/docs/install-docker-centos7/</guid><description>&lt;p&gt;此页面的当前语言版本尚未翻译：&lt;/p&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/fail2ban-debian12-deployment-guide/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/fail2ban-debian12-deployment-guide/</guid><description>&lt;h1 id="fail2ban-部署与配置指南debian-12-实践"&gt;Fail2ban 部署与配置指南（Debian 12 实践）&lt;/h1&gt;
+&lt;p&gt;本文提供一份&lt;strong&gt;可直接复制执行&lt;/strong&gt;的命令行脚本与配置示例，帮助你在 Debian 12 上快速部署并启用 Fail2ban。&lt;br&gt;
+重点解决 Debian 12 默认无 &lt;code&gt;/var/log/auth.log&lt;/code&gt; 的问题，推荐使用 &lt;strong&gt;systemd backend&lt;/strong&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="-背景说明"&gt;📝 背景说明&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Debian 12 默认不再生成 &lt;code&gt;/var/log/auth.log&lt;/code&gt;，SSH 登录失败记录存放在 &lt;strong&gt;systemd journal&lt;/strong&gt; 中。&lt;/li&gt;
+&lt;li&gt;Fail2ban 默认配置会报错，需要调整：
+&lt;ul&gt;
+&lt;li&gt;方法一：安装 &lt;code&gt;rsyslog&lt;/code&gt; 生成传统日志文件&lt;/li&gt;
+&lt;li&gt;方法二（推荐）：让 Fail2ban 直接读取 systemd 日志&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="-安装与启用"&gt;🚀 安装与启用&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt install fail2ban -y
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo systemctl &lt;span class="nb"&gt;enable&lt;/span&gt; --now fail2ban
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;⚙️ 配置 Fail2ban
+编辑配置文件：&lt;/p&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql57-docker-oneclick-deployment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql57-docker-oneclick-deployment/</guid><description>&lt;h1 id="mysql-57-docker-部署最佳实践---一键脚本版"&gt;MySQL 5.7 Docker 部署最佳实践 - 一键脚本版&lt;/h1&gt;
 &lt;p&gt;本文提供一份&lt;strong&gt;可直接复制执行&lt;/strong&gt;的命令行脚本，帮助你快速完成 MySQL 5.7 的 Docker 部署。&lt;br&gt;
 脚本内容涵盖：目录初始化、自定义配置、权限设置与容器启动。&lt;/p&gt;
 &lt;hr&gt;
