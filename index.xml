@@ -1,4 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>信息中枢</title><link>https://ezkemj.github.io/myHugo/</link><description>Recent content on 信息中枢</description><generator>Hugo -- 0.152.2</generator><language>zh-cn</language><lastBuildDate>Thu, 25 Sep 2025 16:50:00 +0800</lastBuildDate><atom:link href="https://ezkemj.github.io/myHugo/index.xml" rel="self" type="application/rss+xml"/><item><title>在 Debian/Ubuntu 中配置静态 IP 地址</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/statisipconfig/</link><pubDate>Thu, 25 Sep 2025 16:50:00 +0800</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/statisipconfig/</guid><description>&lt;h2 id="-简介"&gt;📌 简介&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>信息中枢</title><link>https://ezkemj.github.io/myHugo/</link><description>Recent content on 信息中枢</description><generator>Hugo -- 0.152.2</generator><language>zh-cn</language><lastBuildDate>Wed, 05 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ezkemj.github.io/myHugo/index.xml" rel="self" type="application/rss+xml"/><item><title>Optimizing Windows 10 VM on KVM</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/optimizing-win10-vm-kvm/</link><pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/optimizing-win10-vm-kvm/</guid><description>&lt;h1 id="optimizing-windows-10-vm-on-kvm"&gt;Optimizing Windows 10 VM on KVM&lt;/h1&gt;
+&lt;h2 id="-操作步骤"&gt;🛠️ 操作步骤&lt;/h2&gt;
+&lt;h3 id="1-安装-virtio-驱动必做"&gt;1. 安装 VirtIO 驱动（必做）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;下载 virtio-win 驱动 ISO&lt;/li&gt;
+&lt;li&gt;在 virt-manager 或 virsh 配置里，给 Win10 VM 添加一个光驱，挂载该 ISO&lt;/li&gt;
+&lt;li&gt;启动 Win10 VM → 打开 &lt;strong&gt;设备管理器&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;磁盘控制器 → 更新驱动 → 浏览 → 指定 ISO 内 &lt;strong&gt;viostor&lt;/strong&gt; 文件夹&lt;/li&gt;
+&lt;li&gt;网络控制器 → 更新驱动 → 指定 ISO 内 &lt;strong&gt;NetKVM&lt;/strong&gt; 文件夹&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;安装 &lt;strong&gt;Balloon 驱动&lt;/strong&gt;（内存回收）和 &lt;strong&gt;QEMU Guest Agent&lt;/strong&gt;（宿主机通信）&lt;/li&gt;
+&lt;li&gt;显卡可选安装 &lt;strong&gt;viogpu&lt;/strong&gt;，提供基础 2D 加速&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id="2-宿主机侧优化"&gt;2. 宿主机侧优化&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;CPU 绑定 (CPU pinning)&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>在 Debian/Ubuntu 中配置静态 IP 地址</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/statisipconfig/</link><pubDate>Thu, 25 Sep 2025 16:50:00 +0800</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/statisipconfig/</guid><description>&lt;h2 id="-简介"&gt;📌 简介&lt;/h2&gt;
 &lt;p&gt;在服务器或虚拟机环境中，常常需要为网卡配置静态 IP 地址，以便固定访问。&lt;br&gt;
 本文演示如何在 &lt;strong&gt;Debian/Ubuntu 系统&lt;/strong&gt; 中通过修改 &lt;code&gt;/etc/network/interfaces&lt;/code&gt; 文件来配置静态 IP。&lt;/p&gt;
 &lt;blockquote&gt;
