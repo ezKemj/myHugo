@@ -690,7 +690,68 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;✅ MySQL 8.0 已启动完成&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;👉 Run &amp;#39;docker ps | grep mysql8-prod&amp;#39; to verify the container status.&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;👉 Run &amp;#39;docker exec -it mysql8-prod mysql -uroot -p&amp;#39; to connect.&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/postgresql16-docker-oneclick-deployment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/postgresql16-docker-oneclick-deployment/</guid><description>&lt;h1 id="postgresql-16-docker-部署最佳实践---一键脚本版"&gt;PostgreSQL 16 Docker 部署最佳实践 - 一键脚本版&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/nginx-docker-reverse-proxy-oneclick/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/nginx-docker-reverse-proxy-oneclick/</guid><description>&lt;h1 id="nginx-docker-反向代理部署最佳实践---一键脚本版"&gt;Nginx Docker 反向代理部署最佳实践 - 一键脚本版&lt;/h1&gt;
+&lt;p&gt;本文提供一份&lt;strong&gt;可直接复制执行&lt;/strong&gt;的命令行脚本，帮助你快速完成 Nginx 反向代理的 Docker 部署。&lt;br&gt;
+脚本内容涵盖：目录初始化、权限设置、安全参数、容器运行与示例配置。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="-配置说明简要"&gt;📝 配置说明（简要）&lt;/h2&gt;
+&lt;h3 id="目录与权限"&gt;目录与权限&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/srv/nginx/conf&lt;/code&gt;：Nginx 配置文件（只读，root:root）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/srv/nginx/certs&lt;/code&gt;：证书目录（只读，root:root）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/srv/nginx/cache&lt;/code&gt;、&lt;code&gt;/srv/nginx/run&lt;/code&gt;、&lt;code&gt;/srv/nginx/logs&lt;/code&gt;：运行时目录（UID 101 可写）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/srv/nginx/html&lt;/code&gt;：静态文件目录（只读）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="安全参数"&gt;安全参数&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--pids-limit=200&lt;/code&gt;：限制进程数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--memory=256m&lt;/code&gt;：限制内存&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--security-opt no-new-privileges&lt;/code&gt;：禁止提权&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--read-only&lt;/code&gt;：容器根文件系统只读&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--cap-drop ALL&lt;/code&gt;：移除所有 Linux capabilities&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="配置文件示例"&gt;配置文件示例&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;限流与连接数限制：&lt;code&gt;limit_req_zone&lt;/code&gt;、&lt;code&gt;limit_conn_zone&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;安全头部：&lt;code&gt;X-Frame-Options&lt;/code&gt;、&lt;code&gt;Content-Security-Policy&lt;/code&gt; 等&lt;/li&gt;
+&lt;li&gt;反向代理：Prowlarr、Radarr、qBittorrent、Jellyfin&lt;/li&gt;
+&lt;li&gt;WebSocket 支持：Jellyfin 视频流&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="-一键部署脚本"&gt;🚀 一键部署脚本&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;&lt;/span&gt;&lt;span class="nb"&gt;set&lt;/span&gt; -e
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# === 1. 创建目录 ===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mkdir -p /srv/nginx/&lt;span class="o"&gt;{&lt;/span&gt;conf,certs,cache,run,logs&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# === 2. 设置权限 ===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chown -R 101:101 /srv/nginx/&lt;span class="o"&gt;{&lt;/span&gt;cache,run,logs&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chown -R root:root /srv/nginx/conf
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chown -R root:root /srv/nginx/certs
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# === 3. 启动容器 ===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;docker run -d &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; --name nginx-proxy &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; --restart unless-stopped &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; --pids-limit&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;200&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; --memory&lt;span class="o"&gt;=&lt;/span&gt;256m &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -p 80:80 &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -p 443:443 &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; --security-opt no-new-privileges &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; --read-only &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; --cap-drop ALL &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -v /srv/nginx/conf:/etc/nginx/conf.d:ro &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -v /srv/nginx/certs:/etc/nginx/certs:ro &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -v /srv/nginx/cache:/var/cache/nginx &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -v /srv/nginx/run:/var/run &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -v /srv/nginx/logs:/var/log/nginx &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -v /srv/nginx/html:/usr/share/nginx/html:ro &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -e &lt;span class="nv"&gt;NGINX_ENTRYPOINT_QUIET_LOGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; nginx:stable-alpine
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;✅ Nginx 反向代理已启动完成&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;🔧 常用操作&lt;/p&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/postgresql16-docker-oneclick-deployment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/postgresql16-docker-oneclick-deployment/</guid><description>&lt;h1 id="postgresql-16-docker-部署最佳实践---一键脚本版"&gt;PostgreSQL 16 Docker 部署最佳实践 - 一键脚本版&lt;/h1&gt;
 &lt;p&gt;本文提供一份&lt;strong&gt;可直接复制执行&lt;/strong&gt;的命令行脚本，帮助你快速完成 PostgreSQL 16 的 Docker 部署。
 同时附带常见问题排查，确保新手也能顺利完成。&lt;/p&gt;
 &lt;h1 id="-配置说明简要"&gt;📝 配置说明（简要）&lt;/h1&gt;
