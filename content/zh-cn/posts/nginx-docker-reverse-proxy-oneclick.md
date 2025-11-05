@@ -66,6 +66,7 @@ echo "✅ Nginx 反向代理已启动完成"
 ```
 
 🔧 常用操作
+---
 # 拷贝默认静态目录
 docker cp nginx-proxy:/usr/share/nginx/html /srv/nginx/html
 
@@ -78,8 +79,10 @@ docker network connect media nginx-proxy
 # 日志排查
 docker logs nginx-proxy
 docker exec -it nginx-proxy nginx -t
+---
 📄 示例配置文件 /srv/nginx/conf/myapp.conf
 nginx
+```bash
 limit_req_zone $binary_remote_addr zone=one:10m rate=10r/s;
 limit_conn_zone $binary_remote_addr zone=addr:10m;
 limit_conn addr 20;
@@ -152,3 +155,4 @@ server {
     # 如果未来要启用 HTTPS，可以取消下面的注释
     # return 301 https://$host$request_uri;
 }
+```
