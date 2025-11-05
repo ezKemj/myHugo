@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>自动化 on 信息中枢</title><link>https://ezkemj.github.io/myHugo/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/</link><description>Recent content in 自动化 on 信息中枢</description><generator>Hugo -- 0.150.0</generator><language>zh-cn</language><lastBuildDate>Thu, 25 Sep 2025 16:10:00 +0800</lastBuildDate><atom:link href="https://ezkemj.github.io/myHugo/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml" rel="self" type="application/rss+xml"/><item><title>批处理脚本示例：检测 Office 安装路径并调用 ospp.vbs</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/detecttheinstallationpathofmicrosoftoffice/</link><pubDate>Thu, 25 Sep 2025 16:10:00 +0800</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/detecttheinstallationpathofmicrosoftoffice/</guid><description>&lt;h2 id="-简介"&gt;📌 简介&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>自动化 on 信息中枢</title><link>https://ezkemj.github.io/myHugo/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/</link><description>Recent content in 自动化 on 信息中枢</description><generator>Hugo -- 0.152.2</generator><language>zh-cn</language><lastBuildDate>Thu, 25 Sep 2025 16:10:00 +0800</lastBuildDate><atom:link href="https://ezkemj.github.io/myHugo/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml" rel="self" type="application/rss+xml"/><item><title>批处理脚本示例：检测 Office 安装路径并调用 ospp.vbs</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/detecttheinstallationpathofmicrosoftoffice/</link><pubDate>Thu, 25 Sep 2025 16:10:00 +0800</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/detecttheinstallationpathofmicrosoftoffice/</guid><description>&lt;h2 id="-简介"&gt;📌 简介&lt;/h2&gt;
 &lt;p&gt;本文展示一个 &lt;strong&gt;批处理脚本示例&lt;/strong&gt;，用于检测 Microsoft Office 的安装路径，并调用自带的 &lt;code&gt;ospp.vbs&lt;/code&gt; 脚本执行操作。&lt;br&gt;
 该示例仅用于学习 &lt;strong&gt;批处理逻辑&lt;/strong&gt;（循环、条件判断、路径检测），不包含任何激活或破解内容。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;⚠️ &lt;strong&gt;免责声明&lt;/strong&gt;：本文仅供学习 Windows 批处理脚本编写方法。请勿将此类脚本用于规避商业软件授权或其他违法用途，否则后果自负。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;⚠️ &lt;strong&gt;免责声明&lt;/strong&gt;：本文仅供学习 Windows 批处理脚本编写方法。请勿将此类脚本用于规避商业软件授权或其他违法用途，否则后果自负。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id="-功能说明"&gt;🛠 功能说明&lt;/h2&gt;
 &lt;ol&gt;
@@ -12,39 +13,39 @@
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;h2 id="-脚本代码"&gt;💻 脚本代码&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bat" data-lang="bat"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;@&lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; off
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;title&lt;/span&gt; Office Script Example
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; Detecting Office version...
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;:&lt;span style="color:#75715e"&gt;: 定义可能的 Office 版本号&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;set&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;office_paths=16 15 14&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;set&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;found=0&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;:&lt;span style="color:#75715e"&gt;: 遍历 x64 和 x86 安装目录&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;p &lt;span style="color:#66d9ef"&gt;in&lt;/span&gt; (&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;%ProgramFiles%&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;%ProgramFiles(x86)%&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;do&lt;/span&gt; (
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;v &lt;span style="color:#66d9ef"&gt;in&lt;/span&gt; (%office_paths%) &lt;span style="color:#66d9ef"&gt;do&lt;/span&gt; (
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;exist&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;&lt;span style="color:#e6db74"&gt;~p\Microsoft Office\Office&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;&lt;span style="color:#e6db74"&gt;v\ospp.vbs&amp;#34;&lt;/span&gt; (
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;set&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;office_path=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;&lt;span style="color:#e6db74"&gt;~p\Microsoft Office\Office&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;&lt;span style="color:#e6db74"&gt;v&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;set&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;office_version=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;%%&lt;/span&gt;&lt;span style="color:#e6db74"&gt;v&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;set&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;found=1&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;goto&lt;/span&gt; :version_found
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; )
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; )
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;:version_found
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;%found%&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;==&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;0&amp;#34;&lt;/span&gt; (
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; Office installation not found.
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;goto&lt;/span&gt; :end
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;cd&lt;/span&gt; /d &lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;%office_path%&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;:&lt;span style="color:#75715e"&gt;: 示例：调用 ospp.vbs（此处仅演示，不包含激活命令）&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;cscript ospp.vbs /dstatus
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; Process completed
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;timeout /t 5
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;:end
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bat" data-lang="bat"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;echo&lt;/span&gt; off
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;title&lt;/span&gt; Office Script Example
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;echo&lt;/span&gt; Detecting Office version...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;: 定义可能的 Office 版本号&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;office_paths=16 15 14&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;found=0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;: 遍历 x64 和 x86 安装目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="se"&gt;%%&lt;/span&gt;p &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;%ProgramFiles%&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;%ProgramFiles(x86)%&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="se"&gt;%%&lt;/span&gt;v &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;%office_paths%&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="k"&gt;exist&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="se"&gt;%%&lt;/span&gt;&lt;span class="s2"&gt;~p\Microsoft Office\Office&lt;/span&gt;&lt;span class="se"&gt;%%&lt;/span&gt;&lt;span class="s2"&gt;v\ospp.vbs&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;office_path=&lt;/span&gt;&lt;span class="se"&gt;%%&lt;/span&gt;&lt;span class="s2"&gt;~p\Microsoft Office\Office&lt;/span&gt;&lt;span class="se"&gt;%%&lt;/span&gt;&lt;span class="s2"&gt;v&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;office_version=&lt;/span&gt;&lt;span class="se"&gt;%%&lt;/span&gt;&lt;span class="s2"&gt;v&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;found=1&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;goto&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;version_found&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;version_found&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;%found%&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;0&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;echo&lt;/span&gt; Office installation not found.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;goto&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;cd&lt;/span&gt; /d &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;%office_path%&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;: 示例：调用 ospp.vbs（此处仅演示，不包含激活命令）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cscript ospp.vbs /dstatus
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;echo&lt;/span&gt; Process completed
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;timeout /t 5
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nl"&gt;end&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>

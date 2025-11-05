@@ -1,12 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>系统管理 on 信息中枢</title><link>https://ezkemj.github.io/myHugo/categories/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/</link><description>Recent content in 系统管理 on 信息中枢</description><generator>Hugo -- 0.150.0</generator><language>zh-cn</language><lastBuildDate>Thu, 25 Sep 2025 16:40:00 +0800</lastBuildDate><atom:link href="https://ezkemj.github.io/myHugo/categories/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml"/><item><title>CentOS 7 调整 LVM 分区：缩小 /home 并扩展 /root</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/adjustpartthecentos7/</link><pubDate>Thu, 25 Sep 2025 16:40:00 +0800</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/adjustpartthecentos7/</guid><description>&lt;h2 id="-简介"&gt;📌 简介&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>系统管理 on 信息中枢</title><link>https://ezkemj.github.io/myHugo/categories/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/</link><description>Recent content in 系统管理 on 信息中枢</description><generator>Hugo -- 0.152.2</generator><language>zh-cn</language><lastBuildDate>Thu, 25 Sep 2025 16:50:00 +0800</lastBuildDate><atom:link href="https://ezkemj.github.io/myHugo/categories/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml"/><item><title>在 Debian/Ubuntu 中配置静态 IP 地址</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/statisipconfig/</link><pubDate>Thu, 25 Sep 2025 16:50:00 +0800</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/statisipconfig/</guid><description>&lt;h2 id="-简介"&gt;📌 简介&lt;/h2&gt;
+&lt;p&gt;在服务器或虚拟机环境中，常常需要为网卡配置静态 IP 地址，以便固定访问。&lt;br&gt;
+本文演示如何在 &lt;strong&gt;Debian/Ubuntu 系统&lt;/strong&gt; 中通过修改 &lt;code&gt;/etc/network/interfaces&lt;/code&gt; 文件来配置静态 IP。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;⚠️ &lt;strong&gt;注意&lt;/strong&gt;：本文示例中的 IP 地址、网关、DNS 仅为演示，请根据实际网络环境替换。&lt;br&gt;
+修改网络配置可能导致远程连接中断，建议在本地或有控制台的情况下操作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="-操作步骤"&gt;🛠 操作步骤&lt;/h2&gt;
+&lt;h3 id="1-查看当前网络接口"&gt;1. 查看当前网络接口&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ip addr
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;找到你要配置的网卡名称（示例为 ens32）。&lt;/p&gt;</description></item><item><title>CentOS 7 调整 LVM 分区：缩小 /home 并扩展 /root</title><link>https://ezkemj.github.io/myHugo/zh-cn/posts/adjustpartthecentos7/</link><pubDate>Thu, 25 Sep 2025 16:40:00 +0800</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/adjustpartthecentos7/</guid><description>&lt;h2 id="-简介"&gt;📌 简介&lt;/h2&gt;
 &lt;p&gt;在 CentOS 7 的默认安装中，常常会出现 &lt;code&gt;/home&lt;/code&gt; 分区过大而 &lt;code&gt;/&lt;/code&gt; 分区空间不足的情况。
 本文演示如何通过 &lt;strong&gt;备份 → 删除 home → 重建 home → 扩展 root&lt;/strong&gt; 的方式重新分配磁盘空间。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;⚠️ &lt;strong&gt;注意&lt;/strong&gt;：此操作具有破坏性，必须提前做好完整备份。
-本文中的卷组名、逻辑卷名、路径均为示例，请根据实际环境替换。&lt;/p&gt;&lt;/blockquote&gt;
+本文中的卷组名、逻辑卷名、路径均为示例，请根据实际环境替换。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id="-操作步骤"&gt;🛠 操作步骤&lt;/h2&gt;
 &lt;h3 id="1-查看磁盘使用情况"&gt;1. 查看磁盘使用情况&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;df -h
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;df -h
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="2-备份-home-数据"&gt;2. 备份 /home 数据&lt;/h3&gt;
 &lt;p&gt;可以选择打包压缩或 rsync 增量备份：&lt;/p&gt;</description></item></channel></rss>
