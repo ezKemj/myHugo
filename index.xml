@@ -544,7 +544,84 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;systemctl restart docker
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; -e &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;GREEN&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;Docker 安装与镜像加速配置完成！（CentOS 7）&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;NC&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>CentOS 7 Docker 安装与镜像加速配置脚本</title><link>https://ezkemj.github.io/myHugo/zh-tw/docs/install-docker-centos7/</link><pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-tw/docs/install-docker-centos7/</guid><description>&lt;p&gt;此页面的当前语言版本尚未翻译：&lt;/p&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql8-docker-oneclick-deployment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql8-docker-oneclick-deployment/</guid><description>&lt;h1 id="mysql-80-docker-部署最佳实践---一键脚本版"&gt;MySQL 8.0 Docker 部署最佳实践 - 一键脚本版&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>CentOS 7 Docker 安装与镜像加速配置脚本</title><link>https://ezkemj.github.io/myHugo/zh-tw/docs/install-docker-centos7/</link><pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-tw/docs/install-docker-centos7/</guid><description>&lt;p&gt;此页面的当前语言版本尚未翻译：&lt;/p&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql57-docker-oneclick-deployment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql57-docker-oneclick-deployment/</guid><description>&lt;h1 id="mysql-57-docker-部署最佳实践---一键脚本版"&gt;MySQL 5.7 Docker 部署最佳实践 - 一键脚本版&lt;/h1&gt;
+&lt;p&gt;本文提供一份&lt;strong&gt;可直接复制执行&lt;/strong&gt;的命令行脚本，帮助你快速完成 MySQL 5.7 的 Docker 部署。&lt;br&gt;
+脚本内容涵盖：目录初始化、自定义配置、权限设置与容器启动。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="-配置说明简要"&gt;📝 配置说明（简要）&lt;/h2&gt;
+&lt;h3 id="基础信息"&gt;基础信息&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--name mysql57-prod&lt;/code&gt;：容器名称&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--restart unless-stopped&lt;/code&gt;：开机自启，除非手动停止&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-p 3309:3306&lt;/code&gt;：宿主机 3309 端口映射到容器 3306&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="数据目录与配置"&gt;数据目录与配置&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/srv/mysql/5.7/prod/data&lt;/code&gt;：数据目录&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/srv/mysql/5.7/prod/conf&lt;/code&gt;：自定义配置目录&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/srv/mysql/5.7/prod/logs&lt;/code&gt;：日志目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="初始化参数"&gt;初始化参数&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MYSQL_ROOT_PASSWORD&lt;/code&gt;：root 用户密码&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MYSQL_DATABASE&lt;/code&gt;：初始化数据库&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MYSQL_USER&lt;/code&gt; / &lt;code&gt;MYSQL_PASSWORD&lt;/code&gt;：初始化普通用户&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="自定义配置customcnf"&gt;自定义配置（custom.cnf）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;内存与连接数限制：&lt;code&gt;innodb_buffer_pool_size&lt;/code&gt;、&lt;code&gt;max_connections&lt;/code&gt; 等&lt;/li&gt;
+&lt;li&gt;字符集与排序规则：&lt;code&gt;utf8mb4&lt;/code&gt; / &lt;code&gt;utf8mb4_unicode_ci&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;网络与兼容性：&lt;code&gt;skip-name-resolve&lt;/code&gt;、&lt;code&gt;lower_case_table_names=1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="-一键部署脚本"&gt;🚀 一键部署脚本&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;&lt;/span&gt;&lt;span class="nb"&gt;set&lt;/span&gt; -e
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# === 1. 创建目录 ===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mkdir -p /srv/mysql/5.7/prod/&lt;span class="o"&gt;{&lt;/span&gt;data,conf,logs&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# === 2. 写自定义配置 ===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat &amp;gt; /srv/mysql/5.7/prod/conf/custom.cnf &lt;span class="s"&gt;&amp;lt;&amp;lt;&amp;#39;EOF&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;[mysqld]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;# 内存与连接数限制
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;innodb_buffer_pool_size = 256M
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;innodb_log_file_size = 128M
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;innodb_log_files_in_group = 2
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;max_connections = 50
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;key_buffer_size = 16M
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;thread_cache_size = 8
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;# 字符集与排序规则
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;character-set-server = utf8mb4
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;collation-server = utf8mb4_unicode_ci
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;# 网络与兼容性
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;skip-name-resolve
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;lower_case_table_names = 1
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# === 3. 设置目录权限 ===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;chown -R 999:999 /srv/mysql/5.7/prod/&lt;span class="o"&gt;{&lt;/span&gt;data,logs&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# === 4. 启动容器 ===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;docker run -d &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; --name mysql57-prod &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; --restart unless-stopped &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -p 3309:3306 &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -v /srv/mysql/5.7/prod/data:/var/lib/mysql &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -v /srv/mysql/5.7/prod/conf:/etc/mysql/conf.d &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -v /srv/mysql/5.7/prod/logs:/var/log/mysql &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -e &lt;span class="nv"&gt;MYSQL_ROOT_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;PleaseEnterStrongPassw0rd!&amp;#34;&lt;/span&gt; &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -e &lt;span class="nv"&gt;MYSQL_DATABASE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;myapp &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -e &lt;span class="nv"&gt;MYSQL_USER&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;myuser &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; -e &lt;span class="nv"&gt;MYSQL_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;mypassword &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; mysql:5.7
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;✅ MySQL 5.7 已启动完成&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;👉 Run &amp;#39;docker ps | grep mysql57-prod&amp;#39; to verify the container status.&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;👉 Run &amp;#39;docker exec -it mysql57-prod mysql -uroot -p&amp;#39; to connect.&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql8-docker-oneclick-deployment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/mysql8-docker-oneclick-deployment/</guid><description>&lt;h1 id="mysql-80-docker-部署最佳实践---一键脚本版"&gt;MySQL 8.0 Docker 部署最佳实践 - 一键脚本版&lt;/h1&gt;
 &lt;p&gt;本文提供一份&lt;strong&gt;可直接复制执行&lt;/strong&gt;的命令行脚本，帮助你快速完成 MySQL 8.0 的 Docker 部署。
 脚本内容涵盖：目录初始化、自定义配置、权限设置与容器启动。&lt;/p&gt;
 &lt;hr&gt;
