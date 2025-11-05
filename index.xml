@@ -803,4 +803,50 @@ AdGuard Home 是一款全功能的网络广告与跟踪拦截 DNS 服务器。&l
 &lt;h2 id="基础信息"&gt;基础信息&lt;/h2&gt;
 &lt;p&gt;&amp;ndash;name postgres16：容器名称&lt;/p&gt;
 &lt;p&gt;&amp;ndash;restart=unless-stopped：开机自启，除非手动停止&lt;/p&gt;
-&lt;p&gt;&amp;ndash;shm-size=128m：共享内存大小，避免大查询报错&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;&amp;ndash;shm-size=128m：共享内存大小，避免大查询报错&lt;/p&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/v2raya-docker-oneclick-deployment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/v2raya-docker-oneclick-deployment/</guid><description>&lt;h2 id="disclaimer--免责声明"&gt;Disclaimer / 免责声明&lt;/h2&gt;
+&lt;p&gt;This project and all related documentation are provided &lt;strong&gt;for educational and research purposes only&lt;/strong&gt;.&lt;br&gt;
+They are intended to demonstrate Docker deployment practices and system configuration examples.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The author does &lt;strong&gt;not&lt;/strong&gt; encourage, endorse, or promote any use of the software or configurations that may violate local laws or regulations.&lt;/li&gt;
+&lt;li&gt;Users are solely responsible for ensuring that their usage complies with all applicable laws, policies, and service agreements in their jurisdiction.&lt;/li&gt;
+&lt;li&gt;The author assumes &lt;strong&gt;no liability&lt;/strong&gt; for any misuse, damages, or legal consequences arising from the use of this content.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本项目及相关文档仅用于 &lt;strong&gt;学习和研究目的&lt;/strong&gt;，旨在演示 Docker 部署与系统配置示例。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;作者不鼓励、不支持、也不推广任何可能违反当地法律法规的用途。&lt;/li&gt;
+&lt;li&gt;使用者需自行确保其使用行为符合所在地区的法律、政策及服务条款。&lt;/li&gt;
+&lt;li&gt;因使用本内容而产生的任何误用、损害或法律后果，作者概不负责。&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-markdown" data-lang="markdown"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gh"&gt;# V2RayA Docker 部署最佳实践 - 一键脚本版
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gh"&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;本文提供一份**可直接复制执行**的命令行脚本，帮助你快速完成 V2RayA 的 Docker 部署。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;V2RayA 是一个基于 Web 的 V2Ray/Xray 管理面板。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;---
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 🚀 一键部署脚本
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;```bash
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gh"&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gh"&gt;&lt;/span&gt;set -e
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;docker run -d \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --restart=always \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --privileged \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --network=host \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --name v2raya \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -e V2RAYA_LOG_FILE=/tmp/v2raya.log \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -e V2RAYA_V2RAY_BIN=/usr/local/bin/xray \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -e V2RAYA_NFTABLES_SUPPORT=off \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -e IPTABLES_MODE=legacy \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -v /lib/modules:/lib/modules:ro \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -v /etc/resolv.conf:/etc/resolv.conf \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -v /etc/v2raya:/etc/v2raya \
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; mzz2017/v2raya
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;echo &amp;#34;✅ V2RayA 已启动完成&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;echo &amp;#34;👉 Web 管理界面：http://&amp;lt;服务器IP&amp;gt;:2017&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;📝 配置说明
+运行模式：&amp;ndash;network=host，直接使用宿主机网络&lt;/p&gt;</description></item></channel></rss>
