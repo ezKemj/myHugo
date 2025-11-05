@@ -771,7 +771,9 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; nginx:stable-alpine
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;✅ Nginx 反向代理已启动完成&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;🔧 常用操作&lt;/p&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/postgresql16-docker-oneclick-deployment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/postgresql16-docker-oneclick-deployment/</guid><description>&lt;h1 id="postgresql-16-docker-部署最佳实践---一键脚本版"&gt;PostgreSQL 16 Docker 部署最佳实践 - 一键脚本版&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="-常用操作"&gt;🔧 常用操作&lt;/h2&gt;
+&lt;h1 id="拷贝默认静态目录"&gt;拷贝默认静态目录&lt;/h1&gt;
+&lt;p&gt;docker cp nginx-proxy:/usr/share/nginx/html /srv/nginx/html&lt;/p&gt;</description></item><item><title/><link>https://ezkemj.github.io/myHugo/zh-cn/posts/postgresql16-docker-oneclick-deployment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ezkemj.github.io/myHugo/zh-cn/posts/postgresql16-docker-oneclick-deployment/</guid><description>&lt;h1 id="postgresql-16-docker-部署最佳实践---一键脚本版"&gt;PostgreSQL 16 Docker 部署最佳实践 - 一键脚本版&lt;/h1&gt;
 &lt;p&gt;本文提供一份&lt;strong&gt;可直接复制执行&lt;/strong&gt;的命令行脚本，帮助你快速完成 PostgreSQL 16 的 Docker 部署。
 同时附带常见问题排查，确保新手也能顺利完成。&lt;/p&gt;
 &lt;h1 id="-配置说明简要"&gt;📝 配置说明（简要）&lt;/h1&gt;
