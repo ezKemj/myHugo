@@ -29,10 +29,13 @@
 #!/bin/bash
 set -e
 
-# === 1. 创建目录 ===
-mkdir -p /srv/mysql/8.0/prod/{data,conf,logs}
+# === 1. 停止并删除容器 ===
+docker stop mysql8-prod
+docker rm -f mysql8-prod
 
-# === 2. 写自定义配置（只覆盖必要参数） ===
+# === 2. 删除挂载的数据、配置和日志目录 ===
+rm -rf /srv/mysql/8.0/*
+
 cat > /srv/mysql/8.0/prod/conf/custom.cnf <<'EOF'
 [mysqld]
 # 内存与连接数限制
@@ -44,18 +47,13 @@ thread_cache_size = 8
 
 # 字符集与排序规则
 character-set-server = utf8mb4
-    collation-server = utf8mb4_unicode_ci
+collation-server = utf8mb4_unicode_ci
 
-    # 网络与兼容性
+# 网络与兼容性
 skip-name-resolve
 lower_case_table_names = 1
 
-    # 日志
-log_error = /var/log/mysql/error.log
 EOF
-
-# === 3. 设置目录权限 ===
-chown -R 999:999 /srv/mysql/8.0/prod/{data,logs}
 
 # === 4. 启动容器 ===
 docker run -d \
@@ -64,11 +62,6 @@ docker run -d \
   -p 3308:3306 \
   -v /srv/mysql/8.0/prod/data:/var/lib/mysql \
   -v /srv/mysql/8.0/prod/conf:/etc/mysql/conf.d \
-  -v /srv/mysql/8.0/prod/logs:/var/log/mysql \
   -e MYSQL_ROOT_PASSWORD="PleaseEnterStrongPassw0rd!" \
   mysql:8
-
-echo "✅ MySQL 8.0 已启动完成"
-echo "👉 Run 'docker ps | grep mysql8-prod' to verify the container status."
-echo "👉 Run 'docker exec -it mysql8-prod mysql -uroot -p' to connect."
 ```
